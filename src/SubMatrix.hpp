@@ -689,6 +689,49 @@ namespace Eigen
 	CoeffReadCost = evaluator<_MatrixTypeNested>::CoeffReadCost //Todo : check that
       };
     };
+
+    template<typename MatrixType1, typename MatrixType2>
+    struct evaluator< StackMatrix<MatrixType1,MatrixType2> >
+      : evaluator_base< StackMatrix<MatrixType1, MatrixType2> >
+    {
+      typedef StackMatrix<MatrixType1, MatrixType2> XprType;
+      typedef typename MatrixType1::Scalar Scalar;
+      typedef typename nested_eval<MatrixType1,XprType::ColsAtCompileTime>::type MatrixTypeNested;
+      typedef typename remove_all<MatrixTypeNested>::type MatrixTypeNestedCleaned;
+      typedef typename XprType::CoeffReturnType CoeffReturnType;
+      typedef typename StackMatrix<MatrixType1, MatrixType2>::Base MemoryBase;
+      enum {
+	CoeffReadCost = evaluator<MatrixTypeNestedCleaned>::CoeffReadCost,
+	Flags = MatrixType1::Flags | LinearAccessBit
+      };
+
+      evaluator(const XprType& xpr)
+        : m_argImpl(xpr.m1,xpr.m2)
+      { }
+
+      CoeffReturnType coeff(Index row, Index col) const
+      {
+       	return m_argImpl.coeff(row,col);
+      }
+
+      CoeffReturnType coeff(Index row) const
+      {
+       	return m_argImpl.coeff(row);
+      }
+
+      inline Scalar & coeffRef(Index row, Index col) const
+      {
+       	return m_argImpl.coeffRef(row,col);
+      }
+
+      inline Scalar & coeffRef(Index row) const
+      {
+       	return m_argImpl.coeffRef(row);
+      }
+
+      evaluator<MatrixTypeNestedCleaned> m_argImpl;
+
+    };
   }
 
 
@@ -742,7 +785,7 @@ namespace Eigen
       if( index<r1 ) return m1(index); else return m2(index-r1);
     }
 
-  protected:
+    //  protected:
     Base1& m1;
     Base2& m2;
 
