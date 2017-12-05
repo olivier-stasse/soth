@@ -699,7 +699,7 @@ namespace Eigen
       typedef typename nested_eval<MatrixType1,XprType::ColsAtCompileTime>::type MatrixTypeNested;
       typedef typename remove_all<MatrixTypeNested>::type MatrixTypeNestedCleaned;
       typedef typename XprType::CoeffReturnType CoeffReturnType;
-      typedef typename StackMatrix<MatrixType1, MatrixType2>::Base MemoryBase;
+      //      typedef typename StackMatrix<MatrixType1, MatrixType2>::Base MemoryBase;
       enum {
 	CoeffReadCost = evaluator<MatrixTypeNestedCleaned>::CoeffReadCost,
 	Flags = MatrixType1::Flags | LinearAccessBit
@@ -729,7 +729,7 @@ namespace Eigen
        	return m_argImpl.coeffRef(row);
       }
 
-      evaluator<MatrixTypeNestedCleaned> m_argImpl;
+      XprType m_argImpl;
 
     };
   }
