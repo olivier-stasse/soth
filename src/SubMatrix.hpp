@@ -58,22 +58,22 @@ namespace Eigen
         : m_argImpl(xpr.m_matrix)
       { }
 
-      CoeffReturnType coeff(Index row, Index col) const
+      inline const CoeffReturnType coeff(Index row, Index col) const
       {
        	return m_argImpl.coeff(row,col);
       }
 
-      CoeffReturnType coeff(Index row) const
+      inline const CoeffReturnType coeff(Index row) const
       {
        	return m_argImpl.coeff(row);
       }
 
-      inline Scalar & coeffRef(Index row, Index col) const
+      inline Scalar & coeffRef(Index row, Index col)
       {
        	return m_argImpl.coeffRef(row,col);
       }
 
-      inline Scalar & coeffRef(Index row) const
+      inline Scalar & coeffRef(Index row)
       {
        	return m_argImpl.coeffRef(row);
       }
