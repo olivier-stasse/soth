@@ -45,6 +45,7 @@ namespace Eigen
 #ifndef XENIAL_DETECTED	
        Flags = (_MatrixTypeNested::Flags & HereditaryBits) | ei_compute_lvalue_bit<_MatrixTypeNested>::ret,
        CoeffReadCost = _MatrixTypeNested::CoeffReadCost //Todo : check that
+      };
 #else	
         VectorAtCompileTime = (RowsAtCompileTime == 1) || (ColsAtCompileTime == 1),
 	Flags = (
